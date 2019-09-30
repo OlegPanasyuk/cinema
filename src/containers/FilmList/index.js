@@ -1,38 +1,31 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
 
+import { Row, Col } from 'antd';
+import 'antd/dist/antd.css';
 import { getFilmsAction } from '../../actions/actionsBasic';
 
 import FilmListItem from '../../components/FilmListItem';
 
-class FilmList extends Component {
-
-  componentDidMount() {
-    // fetch('http://www.omdbapi.com/?s=Guardians&page=1&apikey=467ce186')
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     this.setState({ data: data.Search });
-    //   });
-  }
-
+class FilmList extends PureComponent {
   render() {
     const { listFilms } = this.props;
+
+
     return (
       <>
-        <button
-          type="button"
-          onClick={() => {
-            this.props.getFilmsAction({});
-          }}>
-          {this.props.listFilms.length}
-        </button>
-        <h1>FilmList</h1>
-        <div>
-          {listFilms.map(element => {
-            return <FilmListItem key={Math.random()} item={element} />;
+        <Row gutter={{ xs: 8, sm: 16, md: 24}}>
+          {listFilms.map((element, i) => {
+            return (i<5)? <Col span={4} ><FilmListItem key={Math.random()} item={element} /></Col>: undefined;
           })}
-        </div>
+        </Row>
+        <br/>
+        <Row gutter={{ xs: 8, sm: 16, md: 24}}>
+          {listFilms.map((element, i) => {
+            return (i>=5)? <Col span={4} ><FilmListItem key={Math.random()} item={element} /></Col>: undefined;
+          })}
+        </Row>
       </>
     );
   }

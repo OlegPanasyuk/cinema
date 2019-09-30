@@ -9,7 +9,6 @@ import Act from '../actions/index';
 function* getFilmList({ payload }) {
   const response = yield call(getFilms, { query: payload });
   if (response.status === 200) {
-    debugger;
     yield put(Act.getFilmsActionSuccess(response.data.Search));
   } else {
     console.log('dfsdf');
