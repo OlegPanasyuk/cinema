@@ -25,7 +25,8 @@
     "import/imports-first": ["error", "absolute-first"],
     "import/newline-after-import": "error",
     "react/state-in-constructor": 0,
-    "react/jsx-props-no-spreading": 0
+    "react/jsx-props-no-spreading": 0,
+    "react/forbid-prop-types": [1, { "forbid": [], "checkContextTypes": true, "checkChildContextTypes": true }]
   },
   "globals": {
     "window": true,

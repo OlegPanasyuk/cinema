@@ -1,0 +1,13 @@
+.searchRow {
+    height: 100vh;
+    transition: all 0.2s ease-in; 
+}
+
+.searchRow_used {
+    height: 10vh;
+    transform: translateY(0%); 
+}
+
+.searchRow_not-used {
+    transform: translateY(0%);
+}

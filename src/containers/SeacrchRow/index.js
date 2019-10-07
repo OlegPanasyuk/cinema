@@ -8,32 +8,32 @@ import { getFilmsAction } from '../../actions/actionsBasic';
 
 const { Search } = Input;
 
-
 class SearchRow extends Component {
+  componentDidMount() {}
 
-    componentDidMount() {
+  executeSearchRequest = value => {
+    this.props.getFilmsAction({ s: value });
+  };
 
-    }
-
-    render() {
-        return (
-            <div>
-               <Search 
-                    placeholder="input film name"
-                    onSearch={value => this.props.getFilmsAction({ s: value })}
-               />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Search
+          placeholder="input film name"
+          onSearch={this.executeSearchRequest}
+        />
+      </div>
+    );
+  }
 }
 
-SearchRow.propTypes = {
-
-};
+SearchRow.propTypes = {};
 
 const mapDispatchToProps = {
-    getFilmsAction
-}
+  getFilmsAction,
+};
 
-
-export default connect(null, mapDispatchToProps)(SearchRow);
+export default connect(
+  null,
+  mapDispatchToProps
+)(SearchRow);
