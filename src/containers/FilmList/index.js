@@ -11,7 +11,7 @@ import FilmListItem from '../../components/FilmListItem';
 class FilmList extends PureComponent {
 
   state = {
-    columns: 5
+    columns: 4
   }
 
   componentDidMount() {
@@ -54,7 +54,7 @@ class FilmList extends PureComponent {
         }
       })
       this.setState({
-        columns: 5
+        columns: 4
       });
     } catch (e) {
       console.log(e);

@@ -1,15 +1,16 @@
-import { put, takeEvery, call } from 'redux-saga/effects';
+import { put, takeEvery, call, select } from 'redux-saga/effects';
 
 import { getFilms } from '../services/filmsService';
 
-import { FILMS } from '../actions/actionTypes';
+import { FILMS, FILTERS } from '../actions/actionTypes';
 
 import Act from '../actions/index';
 
-function* getFilmList({ payload }) {
-  const response = yield call(getFilms, { query: payload });
+function* getFilmList() {
+  const filters = yield select(state => state.counting.filters);
+  const response = yield call(getFilms, { query: filters });
   if (response.data.Response !== 'False') {
-    yield put(Act.getFilmsActionSuccess(response.data.Search));
+    yield put(Act.getFilmsActionSuccess(response.data));
   } else {
     const ER = {message: response.data.Error, status: response.status};
     yield put(Act.getFilmsActionFailed(ER));
@@ -20,4 +21,5 @@ function* getFilmList({ payload }) {
 
 export default function*() {
   yield takeEvery(FILMS.REQUEST_FILMS, getFilmList);
+  yield takeEvery(FILTERS.NUMBER_PAGE, getFilmList);
 }

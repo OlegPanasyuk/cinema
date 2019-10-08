@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
 import SearchRow from '../SeacrchRow';
 import FilmList from '../FilmList';
+import PaginationList from '../Pagination';
 import './style.css';
+
 
 class MainPage extends PureComponent {
   render() {
@@ -23,6 +25,7 @@ class MainPage extends PureComponent {
         </Row>
         <Row>
           <Col span={20} offset={2}>
+            <PaginationList />
             <FilmList />
           </Col>
         </Row>
