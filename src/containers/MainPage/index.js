@@ -6,6 +6,7 @@ import SearchRow from '../SeacrchRow';
 import FilmList from '../FilmList';
 import PaginationList from '../Pagination';
 import './style.css';
+import { withRouter } from 'react-router-dom';
 
 
 class MainPage extends PureComponent {
@@ -29,6 +30,13 @@ class MainPage extends PureComponent {
             <FilmList />
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <footer>
+              footer
+            </footer>
+          </Col>
+        </Row>
       </>
     );
   }
@@ -42,7 +50,7 @@ const mapStateToProps = state => ({
   listFilms: state.counting.data,
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   null
-)(MainPage);
+)(MainPage));

@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import numberReducer from './basicReducers';
+import filmsReducer from './basicReducers';
+import filmReducer from './filmReducers';
 
 export default combineReducers({
-  counting: numberReducer,
+  counting: filmsReducer,
+  filmToShow: filmReducer
 });

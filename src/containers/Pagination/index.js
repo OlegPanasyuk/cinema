@@ -14,7 +14,7 @@ class PaginationList extends Component {
         const { totalDataResults, current } = this.props;
         return (
             <div>
-                {  totalDataResults &&
+                {  (totalDataResults > 0) &&
                     <Pagination current={current} size="small" total={totalDataResults} onChange={this.onChange} />
                 }
             </div>

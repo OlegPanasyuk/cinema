@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { Row, Col } from 'antd';
 import 'antd/dist/antd.css';
@@ -46,7 +47,6 @@ class FilmList extends PureComponent {
     try {
       Object.keys(points).forEach(el => {
         if (width < points[el]) {
-          console.log(el);
           this.setState({
             columns: columnsSizes[el]
           });
@@ -67,7 +67,6 @@ class FilmList extends PureComponent {
     const { listFilms } = this.props;
     const { columns } = this.state;
     const rows = Array(Math.ceil(listFilms.length / columns)).fill(0).map(() => []);
-    console.log(rows);
     let counter = 0;
     listFilms.forEach((element, i) => {
       if ((i % columns === 0) && (i >= columns)) {
@@ -101,7 +100,7 @@ const mapDispatchToProps = {
   getFilmsAction,
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(FilmList);
+)(FilmList));
