@@ -2,28 +2,30 @@ import { handleActions } from 'redux-actions';
 import { FILM } from '../actions/actionTypes';
 
 const initialState = {
-    film: {}
-}
+  film: {},
+};
 
 const showFilmReducer = (state, { payload }) => {
-    const {Response, ...rest} = payload;
+  const { Response, ...rest } = payload;
 
-    return {
-        ...state,
-        film: {...rest}
-    }
-}
+  return {
+    ...state,
+    film: { ...rest },
+  };
+};
 
-const clearFilmReducer = (state) => {
-    return {
-        ...state,
-        film: {}
-    }
-}
+const clearFilmReducer = state => {
+  return {
+    ...state,
+    film: {},
+  };
+};
 
-
-export default handleActions({
+export default handleActions(
+  {
     [FILM.REQUEST_FILM_SUCCESS]: showFilmReducer,
     [FILM.REQUEST_FILM_FAILED]: clearFilmReducer,
-    [FILM.CLEAR_FILM_INFO]: clearFilmReducer
-}, initialState);
+    [FILM.CLEAR_FILM_INFO]: clearFilmReducer,
+  },
+  initialState
+);

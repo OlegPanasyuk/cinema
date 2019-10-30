@@ -10,17 +10,13 @@ class FetchRequests {
         const myInit = {
           method,
           headers: myHeaders,
-          cors: 'cors'
+          cors: 'cors',
           // body: JSON.stringify(bodyR),
         };
-        console.log(url);
         Object.keys(headers).forEach(el => {
           myHeaders.append(el, headers[el]);
         });
-        fetch(
-          `${url}${queryStr}`,
-          myInit
-        ).then(res => {
+        fetch(`${url}${queryStr}`, myInit).then(res => {
           const { status, statusText } = res;
           if (res.ok) {
             res.json().then(data => {

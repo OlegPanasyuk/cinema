@@ -10,8 +10,8 @@ class FilmListItem extends PureComponent {
   refImg = React.createRef();
 
   state = {
-    redirect: false
-  }
+    redirect: false,
+  };
 
   componentDidMount() {
     const img = this.refImg.current;
@@ -22,33 +22,34 @@ class FilmListItem extends PureComponent {
 
   redirection = () => {
     this.setState({
-      redirect: true
+      redirect: true,
     });
-  }
+  };
 
   render() {
     const { item } = this.props;
     const { redirect } = this.state;
     return (
       <>
-      <Card
-        cover={
-          <img
-            ref={this.refImg}
-            alt="Poster"
-            className="card-img"
-            src={item.Poster}
+        <Card
+          cover={
+            <img
+              ref={this.refImg}
+              alt="Poster"
+              className="card-img"
+              src={item.Poster}
+            />
+          }
+          onClick={this.redirection}>
+          <Meta title={item.Title} description={`${item.Type} ${item.Year}`} />
+        </Card>
+        {redirect && (
+          <Redirect
+            to={{
+              pathname: `/film/${item.imdbID}`,
+            }}
           />
-        }
-        onClick={this.redirection}
-        >
-        <Meta title={item.Title} description={`${item.Type} ${item.Year}`}/>
-      </Card>
-        {redirect && <Redirect
-          to={{
-            pathname: `/film/${item.imdbID}`,
-          }}
-        />}
+        )}
       </>
     );
   }

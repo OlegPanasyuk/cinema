@@ -7,33 +7,33 @@ const initialState = {
   error: {},
   filters: {
     s: '',
-    page: 1
-  }
+    page: 1,
+  },
 };
 
 function addDataReducer(state, { payload }) {
   return {
     ...state,
     data: payload.Search,
-    totalDataResults: +payload.totalResults
-  }
+    totalDataResults: +payload.totalResults,
+  };
 }
 
-function errorUpdate(state, {payload}) {
+function errorUpdate(state, { payload }) {
   return {
     ...state,
-    error: payload
-  }
-} 
+    error: payload,
+  };
+}
 
 function setSearchRowReducer(state, { payload }) {
   return {
     ...state,
     filters: {
       ...state.filters,
-      s: payload
-    }
-  }
+      s: payload,
+    },
+  };
 }
 
 function setNumberRowReducer(state, { payload }) {
@@ -41,9 +41,9 @@ function setNumberRowReducer(state, { payload }) {
     ...state,
     filters: {
       ...state.filters,
-      page: payload
-    }
-  }
+      page: payload,
+    },
+  };
 }
 
 export default handleActions(
@@ -51,7 +51,7 @@ export default handleActions(
     [FILMS.REQUEST_FILMS_SUCCESS]: addDataReducer,
     [FILMS.REQUEST_FILMS_FAILED]: errorUpdate,
     [FILTERS.SEARCH_ROW]: setSearchRowReducer,
-    [FILTERS.NUMBER_PAGE]: setNumberRowReducer
+    [FILTERS.NUMBER_PAGE]: setNumberRowReducer,
   },
   initialState
 );

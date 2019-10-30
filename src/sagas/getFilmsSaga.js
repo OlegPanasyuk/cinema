@@ -12,17 +12,17 @@ function* getFilmsList() {
   if (response.data.Response !== 'False') {
     yield put(Act.getFilmsActionSuccess(response.data));
   } else {
-    const ER = {message: response.data.Error, status: response.status};
+    const ER = { message: response.data.Error, status: response.status };
     yield put(Act.getFilmsActionFailed(ER));
   }
 }
 
-function* getFilmInformation({payload: id}) {
+function* getFilmInformation({ payload: id }) {
   const response = yield call(getFilm, id);
   if (response.data.Response !== 'False') {
-    yield put(Act.getFilmActionSuccess(response.data))
+    yield put(Act.getFilmActionSuccess(response.data));
   } else {
-    const ER = {message: response.data.Error, status: response.status};
+    const ER = { message: response.data.Error, status: response.status };
     yield put(Act.getFilmActionFailed(ER));
   }
 }
@@ -32,5 +32,5 @@ function* getFilmInformation({payload: id}) {
 export default function*() {
   yield takeEvery(FILMS.REQUEST_FILMS, getFilmsList);
   yield takeEvery(FILTERS.NUMBER_PAGE, getFilmsList);
-  yield takeEvery(FILM.REQUEST_FILM, getFilmInformation)
+  yield takeEvery(FILM.REQUEST_FILM, getFilmInformation);
 }

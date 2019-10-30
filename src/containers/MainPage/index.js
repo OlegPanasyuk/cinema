@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
 import SearchRow from '../SeacrchRow';
 import FilmList from '../FilmList';
 import PaginationList from '../Pagination';
 import './style.css';
-import { withRouter } from 'react-router-dom';
 
 
 class MainPage extends PureComponent {
@@ -32,9 +32,7 @@ class MainPage extends PureComponent {
         </Row>
         <Row>
           <Col>
-            <footer>
-              footer
-            </footer>
+            <footer>footer</footer>
           </Col>
         </Row>
       </>
@@ -50,7 +48,9 @@ const mapStateToProps = state => ({
   listFilms: state.counting.data,
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  null
-)(MainPage));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(MainPage)
+);

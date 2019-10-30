@@ -5,5 +5,5 @@ import filmReducer from './filmReducers';
 
 export default combineReducers({
   counting: filmsReducer,
-  filmToShow: filmReducer
+  filmToShow: filmReducer,
 });

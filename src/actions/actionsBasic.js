@@ -1,6 +1,6 @@
 import { FILMS, FILM } from './actionTypes';
 
-export const getFilmsAction = (query) => ({
+export const getFilmsAction = query => ({
   type: FILMS.REQUEST_FILMS,
   payload: query,
 });
@@ -10,12 +10,12 @@ export const getFilmsActionSuccess = data => ({
   payload: data,
 });
 
-export const getFilmsActionFailed = (error) => ({
+export const getFilmsActionFailed = error => ({
   type: FILMS.REQUEST_FILMS_FAILED,
   payload: error,
 });
 
-export const getFilmAction = (id) => ({
+export const getFilmAction = id => ({
   type: FILM.REQUEST_FILM,
   payload: id,
 });
@@ -35,7 +35,6 @@ export const clearFilmInfoAction = () => ({
   payload: {},
 });
 
-
 export default {
   getFilmsAction,
   getFilmsActionSuccess,
@@ -43,5 +42,5 @@ export default {
   getFilmAction,
   getFilmActionSuccess,
   getFilmActionFailed,
-  clearFilmInfoAction
-}
+  clearFilmInfoAction,
+};

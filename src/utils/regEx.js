@@ -2,6 +2,6 @@ export const regEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z
 export const regPassWord = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g;
 
 export default {
-    regEmail,
-    regPassWord
+  regEmail,
+  regPassWord,
 };
