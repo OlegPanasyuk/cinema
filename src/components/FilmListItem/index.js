@@ -15,7 +15,7 @@ class FilmListItem extends PureComponent {
 
   componentDidMount() {
     const img = this.refImg.current;
-    img.onerror = function() {
+    img.onerror = () => {
       img.src = 'http://placeimg.com/640/480/tech';
     };
   }
@@ -29,6 +29,7 @@ class FilmListItem extends PureComponent {
   render() {
     const { item } = this.props;
     const { redirect } = this.state;
+    
     return (
       <>
         <Card

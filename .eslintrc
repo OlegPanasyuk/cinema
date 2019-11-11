@@ -1,6 +1,6 @@
 {
-  "extends": ["airbnb", "prettier", "prettier/react"],
-  "plugins": ["prettier"],
+  "extends": ["airbnb", "prettier", "prettier/react", "plugin:jsx-a11y/recommended"],
+  "plugins": ["prettier", "jsx-a11y"],
   "rules": {
     "camelcase": 1,
     "no-unused-expressions": 1,
@@ -10,9 +10,9 @@
     "no-console": "warn",
     "react/destructuring-assignment": 0,
     "no-restricted-globals": ["error", "event", "fdescribe"],
-    "jsx-a11y/no-static-element-interactions": 0,
-    "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/no-static-element-interactions": 1,
+    "jsx-a11y/click-events-have-key-events": 1,
+    "jsx-a11y/no-noninteractive-element-interactions": 1,
     "react/jsx-filename-extension": [
       1,
       {

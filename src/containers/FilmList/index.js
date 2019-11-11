@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Suspense } from 'react';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -7,7 +7,9 @@ import { Row, Col } from 'antd';
 import 'antd/dist/antd.css';
 import { getFilmsAction } from '../../actions/actionsBasic';
 
-import FilmListItem from '../../components/FilmListItem';
+// import FilmListItem from '../../components/FilmListItem';
+
+const FilmListItem = React.lazy(() => import('../../components/FilmListItem'));
 
 class FilmList extends PureComponent {
   state = {
@@ -74,6 +76,8 @@ class FilmList extends PureComponent {
       rows[counter].push(element);
     });
     const colSpan = Math.floor(24 / columns);
+    
+
     return (
       <>
         {rows &&
@@ -85,7 +89,9 @@ class FilmList extends PureComponent {
                 {cols.map(element => {
                   return (
                     <Col span={colSpan} key={Math.random()}>
-                      <FilmListItem item={element} />
+                      <Suspense fallback={<div>Загрузка...</div>}>
+                        <FilmListItem item={element} />
+                      </Suspense>
                     </Col>
                   );
                 })}

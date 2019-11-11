@@ -27,11 +27,14 @@ class SearchRow extends Component {
   };
 
   render() {
+    const {style} = this.props;
+    console.log(style);
     return (
       <div>
-        <Search
+        <Input
           placeholder="input film name"
           onSearch={this.executeSearchRequest}
+          style={{...style}}
         />
       </div>
     );
