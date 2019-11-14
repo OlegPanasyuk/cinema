@@ -9,8 +9,10 @@ import {
   setFiltersSearchRow,
   setFiltersNumberPage,
 } from '../../actions/actionFilters';
+import { inputWithOnSearch } from './../../components/CustomSearch/index';
+import { themes, ThemeContext } from './../../components/ThemeContext/index';
 
-const { Search } = Input;
+const CustomSearch = inputWithOnSearch(Input);
 
 class SearchRow extends Component {
   componentDidMount() {}
@@ -27,15 +29,22 @@ class SearchRow extends Component {
   };
 
   render() {
-    const {style} = this.props;
-    console.log(style);
     return (
       <div>
-        <Input
+        <ThemeContext.Consumer>
+          {style => (
+            <CustomSearch
+              placeholder="input film name"
+              onSearch={this.executeSearchRequest}
+              style={{...style}}
+            />
+          )}
+        </ThemeContext.Consumer>
+        {/* <Search
           placeholder="input film name"
           onSearch={this.executeSearchRequest}
-          style={{...style}}
-        />
+          loading={false}
+        /> */}
       </div>
     );
   }
