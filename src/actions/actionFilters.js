@@ -10,7 +10,19 @@ export const setFiltersNumberPage = page => ({
   payload: page,
 });
 
+export const setFilterPlot = plot => ({
+  type: FILTERS.PLOT,
+  payload: plot,
+});
+
+export const setFilterType = type => ({
+  type: FILTERS.TYPE,
+  payload: type,
+});
+
 export default {
   setFiltersSearchRow,
   setFiltersNumberPage,
+  setFilterPlot,
+  setFilterType,
 };

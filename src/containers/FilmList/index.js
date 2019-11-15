@@ -3,7 +3,7 @@ import React, { PureComponent, Suspense } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { Row, Col } from 'antd';
+import { Row, Col, Empty, Spin } from 'antd';
 import 'antd/dist/antd.css';
 import { getFilmsAction } from '../../actions/actionsBasic';
 
@@ -63,7 +63,7 @@ class FilmList extends PureComponent {
   };
 
   render() {
-    const { listFilms } = this.props;
+    const { listFilms, error } = this.props;
     const { columns } = this.state;
     const rows = Array(Math.ceil(listFilms.length / columns))
       .fill(0)
@@ -76,8 +76,6 @@ class FilmList extends PureComponent {
       rows[counter].push(element);
     });
     const colSpan = Math.floor(24 / columns);
-    
-
     return (
       <>
         {rows &&
@@ -89,7 +87,7 @@ class FilmList extends PureComponent {
                 {cols.map(element => {
                   return (
                     <Col span={colSpan} key={Math.random()}>
-                      <Suspense fallback={<div>Загрузка...</div>}>
+                      <Suspense fallback={<Spin />}>
                         <FilmListItem item={element} />
                       </Suspense>
                     </Col>
@@ -98,6 +96,10 @@ class FilmList extends PureComponent {
               </Row>
             );
           })}
+        {rows &&
+          rows.length === 0 &&
+          error &&
+          Object.keys(error).length > 0 && <Empty />}
       </>
     );
   }
@@ -105,6 +107,7 @@ class FilmList extends PureComponent {
 
 const mapStateToProps = state => ({
   listFilms: state.counting.data,
+  error: state.counting.error,
 });
 
 const mapDispatchToProps = {
@@ -112,8 +115,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(FilmList)
+  connect(mapStateToProps, mapDispatchToProps)(FilmList)
 );

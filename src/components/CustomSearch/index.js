@@ -11,11 +11,10 @@ export const inputWithOnSearch = Component => {
 
     onSearch = () => {
       const { onSearch } = this.props;
-            onSearch(this.ref.current.state.value);
-    }
+      onSearch(this.ref.current.state.value);
+    };
 
     render() {
-      console.log(this.ref);
       const { onSearch, style, ...restProps } = this.props;
       const additionalProps = {
         onPressEnter: this.onSearch,
@@ -26,7 +25,7 @@ export const inputWithOnSearch = Component => {
           <Component
             {...restProps}
             {...additionalProps}
-            style={{...style}}
+            style={{ ...style }}
             ref={this.ref}
             suffix={suffix}
           />

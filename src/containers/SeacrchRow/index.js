@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import 'antd/dist/antd.css';
 import { Input } from 'antd';
@@ -9,14 +8,12 @@ import {
   setFiltersSearchRow,
   setFiltersNumberPage,
 } from '../../actions/actionFilters';
-import { inputWithOnSearch } from './../../components/CustomSearch/index';
-import { themes, ThemeContext } from './../../components/ThemeContext/index';
+import { inputWithOnSearch } from '../../components/CustomSearch/index';
+import { ThemeContext } from '../../components/ThemeContext/index';
 
 const CustomSearch = inputWithOnSearch(Input);
 
-class SearchRow extends Component {
-  componentDidMount() {}
-
+class SearchRow extends React.PureComponent {
   executeSearchRequest = value => {
     const {
       getFilmsAction,
@@ -28,7 +25,14 @@ class SearchRow extends Component {
     getFilmsAction();
   };
 
+  handlerChangeSearchRow = e => {
+    const value = e.target.value;
+    const { setFiltersSearchRow } = this.props;
+    setFiltersSearchRow(value);
+  };
+
   render() {
+    const { searchValueString } = this.props;
     return (
       <div>
         <ThemeContext.Consumer>
@@ -36,15 +40,12 @@ class SearchRow extends Component {
             <CustomSearch
               placeholder="input film name"
               onSearch={this.executeSearchRequest}
-              style={{...style}}
+              onChange={this.handlerChangeSearchRow}
+              value={searchValueString}
+              style={{ ...style }}
             />
           )}
         </ThemeContext.Consumer>
-        {/* <Search
-          placeholder="input film name"
-          onSearch={this.executeSearchRequest}
-          loading={false}
-        /> */}
       </div>
     );
   }
@@ -52,7 +53,9 @@ class SearchRow extends Component {
 
 SearchRow.propTypes = {};
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+  searchValueString: state.counting.filters.s,
+});
 
 const mapDispatchToProps = {
   getFilmsAction,
@@ -60,7 +63,4 @@ const mapDispatchToProps = {
   setFiltersNumberPage,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchRow);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchRow);

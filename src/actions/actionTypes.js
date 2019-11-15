@@ -7,6 +7,8 @@ export const FILMS = {
 export const FILTERS = {
   SEARCH_ROW: 'FILTERS_SEARCH_ROW',
   NUMBER_PAGE: 'FILTERS_NUMBER_PAGE',
+  PLOT: 'FILTERS_PLOT',
+  TYPE: 'FILTERS_TYPE',
 };
 
 export const FILM = {
