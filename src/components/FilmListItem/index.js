@@ -43,6 +43,7 @@ class FilmListItem extends PureComponent {
               src={item.Poster}
             />
           }
+          className="filmList__item"
           onClick={this.redirection}>
           <Meta title={item.Title} description={`${item.Type} ${item.Year}`} />
         </Card>

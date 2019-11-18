@@ -74,14 +74,13 @@ class FilmList extends PureComponent {
     });
     const colSpan = Math.floor(24 / columns);
     return (
-      <>
+      <div className="filmList__content">
         {rows &&
           rows.map(cols => {
             return (
               <Row
                 gutter={{ xs: 8, sm: 16, md: 24 }}
-                style={{ marginTop: '24px' }}
-                className="filmList__content">
+                style={{ marginTop: '24px' }}>
                 {cols.map(element => {
                   return (
                     <Col span={colSpan} key={Math.random()}>
@@ -97,10 +96,8 @@ class FilmList extends PureComponent {
         {rows &&
           rows.length === 0 &&
           error &&
-          Object.keys(error).length > 0 && (
-            <Empty className="filmList__content" />
-          )}
-      </>
+          Object.keys(error).length > 0 && <Empty />}
+      </div>
     );
   }
 }
