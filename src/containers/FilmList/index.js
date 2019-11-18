@@ -6,8 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Row, Col, Empty, Spin } from 'antd';
 import 'antd/dist/antd.css';
 import { getFilmsAction } from '../../actions/actionsBasic';
-
-// import FilmListItem from '../../components/FilmListItem';
+import './style.css';
 
 const FilmListItem = React.lazy(() => import('../../components/FilmListItem'));
 
@@ -81,7 +80,8 @@ class FilmList extends PureComponent {
             return (
               <Row
                 gutter={{ xs: 8, sm: 16, md: 24 }}
-                style={{ marginTop: '24px' }}>
+                style={{ marginTop: '24px' }}
+                className="filmList__content">
                 {cols.map(element => {
                   return (
                     <Col span={colSpan} key={Math.random()}>
@@ -97,7 +97,9 @@ class FilmList extends PureComponent {
         {rows &&
           rows.length === 0 &&
           error &&
-          Object.keys(error).length > 0 && <Empty />}
+          Object.keys(error).length > 0 && (
+            <Empty className="filmList__content" />
+          )}
       </>
     );
   }
