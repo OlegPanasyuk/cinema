@@ -5,15 +5,17 @@ import reducers from '../reducers';
 import sagas from '../sagas/getFilmsSaga';
 
 export const configureStore = () => {
-  const sagaMiddlware = createSagaMiddleware();
+  const sagaMiddleware = createSagaMiddleware();
 
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const store = createStore(
     reducers,
-    composeEnhancers(applyMiddleware(sagaMiddlware))
+    composeEnhancers(applyMiddleware(sagaMiddleware))
   );
-  sagaMiddlware.run(sagas);
+  sagaMiddleware.run(sagas);
   return store;
 };
+
+export default configureStore;

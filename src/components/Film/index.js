@@ -17,7 +17,8 @@ class Film extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearFilmInfoAction();
+    const { clearFilmInfoAction } = this.props;
+    clearFilmInfoAction();
   }
 
   redirectToBackward = () => {
@@ -68,7 +69,9 @@ class Film extends Component {
                     Object.keys(info).length > 0 &&
                     Object.keys(info).map((el, i) => {
                       return (
-                        <Descriptions.Item label={el}>
+                        <Descriptions.Item
+                          key={`${Math.random() + i}`}
+                          label={el}>
                           {`${info[el]}`}
                         </Descriptions.Item>
                       );
@@ -90,7 +93,21 @@ class Film extends Component {
   }
 }
 
-Film.propTypes = {};
+Film.propTypes = {
+  match: PropTypes.object,
+  getFilmAction: PropTypes.func.isRequired,
+  clearFilmInfoAction: PropTypes.func.isRequired,
+  film: PropTypes.object,
+};
+
+Film.defaultProps = {
+  match: {
+    params: {
+      id: 1,
+    },
+  },
+  film: {},
+};
 
 const mapStateToProps = state => ({
   film: state.filmToShow.film,
@@ -101,9 +118,4 @@ const mapDispatchToProps = {
   clearFilmInfoAction,
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Film)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Film));

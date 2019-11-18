@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from 'antd';
+import PropTypes from 'prop-types';
 
 export const inputWithOnSearch = Component => {
   const SearchIcon = React.forwardRef((props, ref) => {
@@ -34,5 +35,16 @@ export const inputWithOnSearch = Component => {
     }
   }
 
+  WrappedComponent.propTypes = {
+    onSearch: PropTypes.func.isRequired,
+    style: PropTypes.object,
+  };
+
+  WrappedComponent.defaultProps = {
+    style: {},
+  };
+
   return WrappedComponent;
 };
+
+export default inputWithOnSearch;

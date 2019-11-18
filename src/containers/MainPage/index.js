@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
 
-import SearchRow from '../SeacrchRow';
+import SearchRow from '../SearchRow';
 import FilmList from '../FilmList';
 import PaginationList from '../Pagination';
 import './style.css';

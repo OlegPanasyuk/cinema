@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Select } from 'antd';
 import { connect } from 'react-redux';
 import { setFilterPlot, setFilterType } from '../../actions/actionFilters';
@@ -37,6 +38,12 @@ function Filters({ setFilterType, setFilterPlot, getFilmsAction }) {
     </>
   );
 }
+
+Filters.propTypes = {
+  setFilterType: PropTypes.func.isRequired,
+  setFilterPlot: PropTypes.func.isRequired,
+  getFilmsAction: PropTypes.func.isRequired,
+};
 
 export default connect(null, {
   setFilterType,

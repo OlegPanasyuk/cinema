@@ -7,7 +7,8 @@ import actions from '../../actions/index';
 
 class PaginationList extends Component {
   onChange = page => {
-    this.props.setFiltersNumberPage(page);
+    const { setFiltersNumberPage } = this.props;
+    setFiltersNumberPage(page);
   };
 
   render() {
@@ -36,9 +37,10 @@ const mapDispatchToProps = {
   setFiltersNumberPage: actions.setFiltersNumberPage,
 };
 
-PaginationList.propTypes = {};
+PaginationList.propTypes = {
+  totalDataResults: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
+  setFiltersNumberPage: PropTypes.func.isRequired,
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PaginationList);
+export default connect(mapStateToProps, mapDispatchToProps)(PaginationList);

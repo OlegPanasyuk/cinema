@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { Input } from 'antd';
 import { getFilmsAction } from '../../actions/actionsBasic';
@@ -13,7 +13,7 @@ import { ThemeContext } from '../../components/ThemeContext/index';
 
 const CustomSearch = inputWithOnSearch(Input);
 
-class SearchRow extends React.PureComponent {
+class SearchRow extends PureComponent {
   executeSearchRequest = value => {
     const {
       getFilmsAction,
@@ -26,7 +26,7 @@ class SearchRow extends React.PureComponent {
   };
 
   handlerChangeSearchRow = e => {
-    const value = e.target.value;
+    const { value } = e.target;
     const { setFiltersSearchRow } = this.props;
     setFiltersSearchRow(value);
   };
@@ -51,7 +51,12 @@ class SearchRow extends React.PureComponent {
   }
 }
 
-SearchRow.propTypes = {};
+SearchRow.propTypes = {
+  getFilmsAction: PropTypes.func.isRequired,
+  setFiltersSearchRow: PropTypes.func.isRequired,
+  setFiltersNumberPage: PropTypes.func.isRequired,
+  searchValueString: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = state => ({
   searchValueString: state.counting.filters.s,

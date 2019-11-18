@@ -1,5 +1,5 @@
 import React, { PureComponent, Suspense } from 'react';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -45,20 +45,18 @@ class FilmList extends PureComponent {
 
     const width = window.innerWidth;
 
-    try {
-      Object.keys(points).forEach(el => {
-        if (width < points[el]) {
-          this.setState({
-            columns: columnsSizes[el],
-          });
-          throw 'size is founded';
-        }
-      });
+    const pointsKeys = Object.keys(points);
+
+    for (let index = 0; index < pointsKeys.length; index += 1) {
+      if (width < points[pointsKeys[index]]) {
+        this.setState({
+          columns: columnsSizes[pointsKeys[index]],
+        });
+        break;
+      }
       this.setState({
         columns: 4,
       });
-    } catch (e) {
-      console.log(e);
     }
   };
 
@@ -104,6 +102,11 @@ class FilmList extends PureComponent {
     );
   }
 }
+
+FilmList.propTypes = {
+  listFilms: PropTypes.array.isRequired,
+  error: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => ({
   listFilms: state.counting.data,

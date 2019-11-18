@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Card } from 'antd';
+import PropTypes from 'prop-types';
+
 import 'antd/dist/antd.css';
 import './index.css';
 
@@ -29,7 +31,7 @@ class FilmListItem extends PureComponent {
   render() {
     const { item } = this.props;
     const { redirect } = this.state;
-    
+
     return (
       <>
         <Card
@@ -55,5 +57,19 @@ class FilmListItem extends PureComponent {
     );
   }
 }
+
+FilmListItem.propTypes = {
+  item: PropTypes.object,
+};
+
+FilmListItem.defaultProps = {
+  item: {
+    Poster: '',
+    imdbID: '0',
+    Title: 'NoName',
+    Type: 'movie',
+    Year: new Date().getFullYear(),
+  },
+};
 
 export default FilmListItem;
