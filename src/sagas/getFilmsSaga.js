@@ -7,25 +7,33 @@ import { FILMS, FILTERS, FILM } from '../actions/actionTypes';
 import Act from '../actions/index';
 
 function* getFilmsList() {
+  yield put(Act.startLoading());
   const filters = yield select(state => state.counting.filters);
+
   const response = yield call(getFilms, { query: filters });
   if (response.data.Response !== 'False') {
+    yield put(Act.finishLoading());
     yield put(Act.getFilmsActionSuccess(response.data));
   } else {
     const ER = { message: response.data.Error, status: response.status };
+    yield put(Act.finishLoading());
     yield put(Act.getFilmsActionFailed(ER));
   }
 }
 
 function* getFilmInformation({ payload: id }) {
+  yield put(Act.startLoading());
   const response = yield call(getFilm, id);
   if (response.data.Response !== 'False') {
+    yield put(Act.finishLoading());
     yield put(Act.getFilmActionSuccess(response.data));
   } else {
     const ER = { message: response.data.Error, status: response.status };
+    yield put(Act.finishLoading());
     yield put(Act.getFilmActionFailed(ER));
   }
 }
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 

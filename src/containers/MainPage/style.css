@@ -3,6 +3,10 @@
   transition: all 0.2s ease-in;
 }
 
+.searchInput {
+  flex-grow: 2;
+}
+
 .searchRow_used {
   height: 10vh;
   transform: translateY(0%);

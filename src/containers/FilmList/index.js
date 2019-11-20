@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { Row, Col, Empty, Spin } from 'antd';
-import 'antd/dist/antd.css';
 import { getFilmsAction } from '../../actions/actionsBasic';
 import './style.css';
 
@@ -60,7 +59,7 @@ class FilmList extends PureComponent {
   };
 
   render() {
-    const { listFilms, error } = this.props;
+    const { listFilms, error, isLoading } = this.props;
     const { columns } = this.state;
     const rows = Array(Math.ceil(listFilms.length / columns))
       .fill(0)
@@ -73,9 +72,19 @@ class FilmList extends PureComponent {
       rows[counter].push(element);
     });
     const colSpan = Math.floor(24 / columns);
+    let wrapperClassName = '';
+    if (rows && rows.length > 0) {
+      wrapperClassName = 'filmList__content';
+    }
+    if (rows && rows.length === 0 && error && Object.keys(error).length > 0) {
+      wrapperClassName = 'filmList__content';
+    }
+
     return (
-      <div className="filmList__content">
-        {rows &&
+      <div className={wrapperClassName}>
+        {isLoading && <Spin size="large" />}
+        {!isLoading &&
+          rows &&
           rows.map(cols => {
             return (
               <Row
@@ -93,7 +102,8 @@ class FilmList extends PureComponent {
               </Row>
             );
           })}
-        {rows &&
+        {!isLoading &&
+          rows &&
           rows.length === 0 &&
           error &&
           Object.keys(error).length > 0 && <Empty />}
@@ -105,11 +115,13 @@ class FilmList extends PureComponent {
 FilmList.propTypes = {
   listFilms: PropTypes.array.isRequired,
   error: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   listFilms: state.counting.data,
   error: state.counting.error,
+  isLoading: state.system.isLoading,
 });
 
 const mapDispatchToProps = {

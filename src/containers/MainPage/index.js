@@ -27,12 +27,9 @@ class MainPage extends PureComponent {
           type="flex"
           align="middle">
           <Col span={12} offset={6}>
-            <SearchRow />
-            <Row
-              type="flex"
-              justify="space-around"
-              style={{ marginTop: '15px' }}>
+            <Row type="flex" align="middle">
               <Filters />
+              <SearchRow className="searchInput" />
             </Row>
           </Col>
         </Row>

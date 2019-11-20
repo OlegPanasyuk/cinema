@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect, withRouter } from 'react-router-dom';
+import { Spin } from 'antd';
 
-import { PageHeader, Row, Col, Descriptions } from 'antd';
 import { getFilmAction, clearFilmInfoAction } from '../../actions/actionsBasic';
+import './style.css';
+import FilmContent from './FilmContent/index';
 
-class Film extends Component {
+class Film extends React.Component {
   state = {
     redirection: false,
   };
@@ -29,58 +31,20 @@ class Film extends Component {
 
   render() {
     const { redirection } = this.state;
-    const { film } = this.props;
+    const { film, isLoading } = this.props;
     const { Poster, Ratings, imdbID, ...info } =
       film && Object.keys(film).length > 0 && film;
-    return (
-      <>
-        <Row>
-          <Col>
-            <PageHeader
-              onBack={this.redirectToBackward}
-              title={`${info.Title} (${info.Year})`}
-              subTitle={`${info.Production}`}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={20} offset={2}>
-            <Row gutter={{ xs: 0, sm: 16, md: 24 }}>
-              <Col
-                sm={{ span: 8 }}
-                xs={{ span: 24 }}
-                lg={{ span: 8 }}
-                md={{ span: 10 }}
-                style={{ marginBottom: '25px' }}>
-                <img
-                  style={{ width: '100%', objectFit: 'cover' }}
-                  src={Poster}
-                  alt="Poster"
-                />
-              </Col>
 
-              <Col
-                sm={{ span: 16 }}
-                xs={{ span: 24 }}
-                lg={{ span: 16 }}
-                md={{ span: 14 }}>
-                <Descriptions column={{ xs: 1, sm: 1, md: 1 }} bordered>
-                  {info &&
-                    Object.keys(info).length > 0 &&
-                    Object.keys(info).map((el, i) => {
-                      return (
-                        <Descriptions.Item
-                          key={`${Math.random() + i}`}
-                          label={el}>
-                          {`${info[el]}`}
-                        </Descriptions.Item>
-                      );
-                    })}
-                </Descriptions>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+    return (
+      <div>
+        {isLoading && <Spin size="large" />}
+        {!isLoading && Object.keys(film).length > 0 && (
+          <FilmContent
+            Poster={Poster}
+            info={info}
+            redirectToBackward={this.redirectToBackward}
+          />
+        )}
         {redirection && (
           <Redirect
             to={{
@@ -88,7 +52,7 @@ class Film extends Component {
             }}
           />
         )}
-      </>
+      </div>
     );
   }
 }
@@ -98,6 +62,7 @@ Film.propTypes = {
   getFilmAction: PropTypes.func.isRequired,
   clearFilmInfoAction: PropTypes.func.isRequired,
   film: PropTypes.object,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 Film.defaultProps = {
@@ -111,6 +76,7 @@ Film.defaultProps = {
 
 const mapStateToProps = state => ({
   film: state.filmToShow.film,
+  isLoading: state.system.isLoading,
 });
 
 const mapDispatchToProps = {

@@ -32,9 +32,9 @@ class SearchRow extends PureComponent {
   };
 
   render() {
-    const { searchValueString } = this.props;
+    const { searchValueString, className } = this.props;
     return (
-      <div>
+      <div className={className}>
         <ThemeContext.Consumer>
           {style => (
             <CustomSearch
@@ -56,6 +56,11 @@ SearchRow.propTypes = {
   setFiltersSearchRow: PropTypes.func.isRequired,
   setFiltersNumberPage: PropTypes.func.isRequired,
   searchValueString: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
+SearchRow.defaultProps = {
+  className: '',
 };
 
 const mapStateToProps = state => ({
