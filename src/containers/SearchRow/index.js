@@ -9,7 +9,6 @@ import {
   setFiltersNumberPage,
 } from '../../actions/actionFilters';
 import { inputWithOnSearch } from '../../components/CustomSearch/index';
-import { ThemeContext } from '../../components/ThemeContext/index';
 
 const CustomSearch = inputWithOnSearch(Input);
 
@@ -35,17 +34,12 @@ class SearchRow extends PureComponent {
     const { searchValueString, className } = this.props;
     return (
       <div className={className}>
-        <ThemeContext.Consumer>
-          {style => (
-            <CustomSearch
-              placeholder="input film name"
-              onSearch={this.executeSearchRequest}
-              onChange={this.handlerChangeSearchRow}
-              value={searchValueString}
-              style={{ ...style }}
-            />
-          )}
-        </ThemeContext.Consumer>
+        <CustomSearch
+          placeholder="input film name"
+          onSearch={this.executeSearchRequest}
+          onChange={this.handlerChangeSearchRow}
+          value={searchValueString}
+        />
       </div>
     );
   }

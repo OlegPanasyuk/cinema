@@ -26,7 +26,7 @@ class MainPage extends PureComponent {
           className={`searchRow ${classSearchRow}`}
           type="flex"
           align="middle">
-          <Col span={12} offset={6}>
+          <Col span={20} offset={2}>
             <Row type="flex" align="middle">
               <Filters />
               <SearchRow className="searchInput" />

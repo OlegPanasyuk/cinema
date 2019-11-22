@@ -5,48 +5,58 @@ import { createBrowserHistory } from 'history';
 import { Layout, Icon, Switch as SwitchAnt } from 'antd';
 import 'antd/dist/antd.css';
 import { configureStore } from './store';
-import { ThemeContext, themes } from './components/ThemeContext';
+import { themes } from './components/ThemeContext';
 import './App.css';
-import './index.css';
+import './index.less';
 import MainPage from './containers/MainPage/index';
 import Film from './components/Film/index';
 import ErrorBoundary from './components/ErrorBoundary/index';
+import darkTheme from './themes/darkTheme/index';
+import lightTheme from './themes/lightTheme/index';
 
 const store = configureStore();
 const history = createBrowserHistory();
 const { Header, Content, Footer } = Layout;
 
-function App() {
-  const [theme, switchTheme] = useState(themes.light);
+function App({ children }) {
+  const [theme, switchTheme] = useState(themes.dark);
+  const toggleColors = () => {
+    switchTheme(theme !== themes.light ? themes.light : themes.dark);
+    let vars = {};
+    const initialValue =
+      theme !== 'light' ? { ...lightTheme } : { ...darkTheme };
 
-  const toggleTheme = () => {
-    const newTheme = theme === themes.light ? themes.dark : themes.light;
-    switchTheme(newTheme);
+    try {
+      vars = { ...initialValue };
+    } finally {
+      console.log(vars);
+      window.less
+        .modifyVars(vars)
+        .then(d => {
+          console.log('d', d);
+        })
+        .catch(error => {
+          console.error('Failed to update theme', error);
+        });
+    }
   };
   return (
     <Provider store={store}>
       <ErrorBoundary>
         <Layout>
-          <ThemeContext.Provider value={theme}>
-            <Header className="header">
-              <Icon type="chrome" style={{ color: 'white', fontSize: '3em' }} />
-              <SwitchAnt defaultChecked onChange={toggleTheme} />
-            </Header>
-            <Content>
-              <Router>
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    history={history}
-                    component={MainPage}
-                  />
-                  <Route path="/film/:id" history={history} component={Film} />
-                </Switch>
-              </Router>
-            </Content>
-            <Footer>Footer @ Cinema 2019</Footer>
-          </ThemeContext.Provider>
+          <Header className="header">
+            <Icon type="chrome" style={{ color: 'white', fontSize: '3em' }} />
+            <SwitchAnt defaultChecked onChange={toggleColors} />
+          </Header>
+          <Content>
+            <Router>
+              <Switch>
+                <Route exact path="/" history={history} component={MainPage} />
+                <Route path="/film/:id" history={history} component={Film} />
+              </Switch>
+            </Router>
+          </Content>
+          <Footer>Footer @ Cinema 2019</Footer>
         </Layout>
       </ErrorBoundary>
     </Provider>

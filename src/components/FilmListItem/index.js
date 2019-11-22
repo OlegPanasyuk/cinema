@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import ImgComponent from '../ImgComponent/index';
 
-import './index.css';
+import './index.less';
 
 const { Meta } = Card;
 
