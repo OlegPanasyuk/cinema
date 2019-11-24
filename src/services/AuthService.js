@@ -9,7 +9,7 @@ export const initAuth = (window, callbackOnSuccess) => {
   const onLogging = auth => {
     const profile = auth.getBasicProfile();
     const authResponse = auth.getAuthResponse();
-    console.log(authResponse);
+    // console.log(authResponse);
     const profileInfo = {
       email: profile.getEmail(),
       familyName: profile.getFamilyName(),
@@ -19,7 +19,7 @@ export const initAuth = (window, callbackOnSuccess) => {
       name: profile.getName(),
     };
     const authResponseInfo = {
-      accessToken: authResponse.accessToken,
+      accessToken: authResponse.login_hint,
       idToken: authResponse.id_token,
       scope: authResponse.scope,
       expiresIn: authResponse.expires_in,
@@ -48,22 +48,22 @@ export const initAuth = (window, callbackOnSuccess) => {
 };
 
 export const signIn = () => {
-  const auth2 = window.gapi.auth2.getAuthInstance();
-  auth2.signIn().then(googleUser => {
-    // метод возвращает объект пользователя
-    // где есть все необходимые нам поля
-    const profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // не посылайте подобную информацию напрямую, на ваш сервер!
-    console.log('Full Name: ' + profile.getName());
-    console.log('Given Name: ' + profile.getGivenName());
-    console.log('Family Name: ' + profile.getFamilyName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
-    console.dir(profile);
-    // токен
-    const id_token = googleUser.getAuthResponse().id_token;
-    console.log('ID Token: ' + id_token);
-  });
+  // const auth2 = window.gapi.auth2.getAuthInstance();
+  // auth2.signIn().then(googleUser => {
+  //   // метод возвращает объект пользователя
+  //   // где есть все необходимые нам поля
+  //   // const profile = googleUser.getBasicProfile();
+  //   // console.log('ID: ' + profile.getId()); // не посылайте подобную информацию напрямую, на ваш сервер!
+  //   // console.log('Full Name: ' + profile.getName());
+  //   // console.log('Given Name: ' + profile.getGivenName());
+  //   // console.log('Family Name: ' + profile.getFamilyName());
+  //   // console.log('Image URL: ' + profile.getImageUrl());
+  //   // console.log('Email: ' + profile.getEmail());
+  //   // console.dir(profile);
+  //   // // токен
+  //   // const id_token = googleUser.getAuthResponse().id_token;
+  //   // console.log('ID Token: ' + id_token);
+  // });
 };
 
 export const signOut = () => {

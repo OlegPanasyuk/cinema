@@ -16,10 +16,11 @@ import lightTheme from './themes/lightTheme/index';
 
 const store = configureStore();
 const history = createBrowserHistory();
-const { Header, Content, Footer } = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 
 function App({ children }) {
   const [theme, switchTheme] = useState(themes.dark);
+  const [collapsingMenu, switchCollapsingMenu] = useState(true);
   const toggleColors = () => {
     switchTheme(theme !== themes.light ? themes.light : themes.dark);
     let vars = {};
@@ -40,6 +41,10 @@ function App({ children }) {
         });
     }
   };
+
+  const toggleCollapse = () => {
+    switchCollapsingMenu(!collapsingMenu);
+  };
   return (
     <Provider store={store}>
       <ErrorBoundary>
@@ -48,15 +53,34 @@ function App({ children }) {
             <Icon type="chrome" style={{ color: 'white', fontSize: '3em' }} />
             <SwitchAnt defaultChecked onChange={toggleColors} />
           </Header>
-          <Content>
-            <Router>
-              <Switch>
-                <Route exact path="/" history={history} component={MainPage} />
-                <Route path="/film/:id" history={history} component={Film} />
-              </Switch>
-            </Router>
-          </Content>
-          <Footer>Footer @ Cinema 2019</Footer>
+          <Layout>
+            <Sider
+              collapsible
+              collapsed={collapsingMenu}
+              onCollapse={toggleCollapse}>
+              {children}
+            </Sider>
+            <Layout>
+              <Content>
+                <Router>
+                  <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      history={history}
+                      component={MainPage}
+                    />
+                    <Route
+                      path="/film/:id"
+                      history={history}
+                      component={Film}
+                    />
+                  </Switch>
+                </Router>
+              </Content>
+              <Footer>Footer @ Cinema 2019</Footer>
+            </Layout>
+          </Layout>
         </Layout>
       </ErrorBoundary>
     </Provider>
