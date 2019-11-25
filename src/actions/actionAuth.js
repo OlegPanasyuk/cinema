@@ -6,7 +6,7 @@ export const singIn = (profile, authResponse) => ({
 });
 
 export const singOut = () => ({
-  type: AUTH.SING_IN,
+  type: AUTH.SING_OUT,
 });
 
 export default {

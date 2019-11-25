@@ -5,4 +5,9 @@ export const themes = {
   dark: 'dark',
 };
 
-export const ThemeContext = React.createContext(themes.dark);
+export const collapsedSize = {
+  short: 'short',
+  full: 'full',
+};
+
+export const SizeContext = React.createContext(collapsedSize.short);

@@ -1,37 +1,53 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
-import Profile from '../../containers/Profile';
+import { connect } from 'react-redux';
 import App from '../../App';
-
-import { initAuth, signOut } from '../../services/AuthService';
+import * as serviceAuth from '../../services/AuthService';
+import AuthProfile from '../../containers/AuthProfile';
+import { singIn, singOut } from '../../actions/actionAuth';
 
 class AuthComponent extends Component {
-  element = (<div id="AuthCointainer"> </div>);
-
-  element2 = (
-    <Profile>
-      <Button onClick={signOut}> LogOut</Button>
-    </Profile>
-  );
-
   componentDidMount() {
-    initAuth(window, this.onLogging);
+    const { singIn } = this.props;
+    serviceAuth.initAuth(window, singIn);
   }
 
-  onLogging = (profile, authResponse) => {
-    console.log(profile, authResponse);
+  onSingIn = async () => {
+    const { singIn } = this.props;
+    const { profileInfo, authResponseInfo } = await serviceAuth.signIn(window);
+    singIn(profileInfo, authResponseInfo);
+  };
+
+  onSingOut = () => {
+    const { singOut } = this.props;
+    serviceAuth.signOut();
+    singOut();
   };
 
   render() {
     return (
       <>
-        <App>{this.element}</App>
+        <App>
+          <AuthProfile toSignOut={this.onSingOut} toSingIn={this.onSingIn} />
+        </App>
       </>
     );
   }
 }
 
-AuthComponent.propTypes = {};
+AuthComponent.propTypes = {
+  singIn: PropTypes.func,
+  singOut: PropTypes.func,
+};
 
-export default AuthComponent;
+AuthComponent.defaultProps = {
+  singIn: () => {},
+  singOut: () => {},
+};
+
+const mapDispatchToProps = {
+  singIn,
+  singOut,
+};
+
+export default connect(null, mapDispatchToProps)(AuthComponent);
