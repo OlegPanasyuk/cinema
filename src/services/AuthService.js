@@ -27,7 +27,27 @@ export const initAuth = (window, callbackOnInitWithUser) => {
     if (isSignedIn) {
       const currentUser = auth2.currentUser.get();
       const { profileInfo, authResponseInfo } = onLogging(currentUser);
-
+      // WTF It does n't work then method
+      window.gapi.client
+        .init({
+          apiKey: 'AIzaSyC8oQZj48wFSFoDGWYNmdd2DAA8nnwYZAc',
+          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+          discoveryDocs: [
+            'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
+          ],
+          scope: 'https://www.googleapis.com/auth/drive.appfolder',
+        })
+        .then(
+          () => {
+            console.log('Good');
+          },
+          error => {
+            console.log(error);
+          },
+          () => {
+            console.log('dddd');
+          }
+        );
       callbackOnInitWithUser(profileInfo, authResponseInfo);
     }
   };
@@ -35,10 +55,9 @@ export const initAuth = (window, callbackOnInitWithUser) => {
     console.log('error', err);
   };
 
-  window.gapi.load('auth2', function inner() {
+  window.gapi.load('client:auth2', function inner() {
     window.gapi.auth2
       .init({
-        // не забудьте указать ваш ключ в .env
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       })
       .then(onInit, onError);

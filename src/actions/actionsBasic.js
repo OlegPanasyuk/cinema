@@ -35,6 +35,16 @@ export const clearFilmInfoAction = () => ({
   payload: {},
 });
 
+export const addFilmToFavorite = id => ({
+  type: FILM.ADD_FILM_TO_FAVORITE,
+  payload: id,
+});
+
+export const removeFilmFromFavorite = id => ({
+  type: FILM.REMOVE_FILM_FROM_FAVORITE,
+  payload: id,
+});
+
 export default {
   getFilmsAction,
   getFilmsActionSuccess,
@@ -43,4 +53,6 @@ export default {
   getFilmActionSuccess,
   getFilmActionFailed,
   clearFilmInfoAction,
+  addFilmToFavorite,
+  removeFilmFromFavorite,
 };

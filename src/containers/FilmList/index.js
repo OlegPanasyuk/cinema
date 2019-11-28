@@ -89,12 +89,13 @@ class FilmList extends PureComponent {
             return (
               <Row
                 gutter={{ xs: 8, sm: 16, md: 24 }}
-                style={{ marginTop: '24px' }}>
+                style={{ marginTop: '24px' }}
+                key={Math.random() + cols.length}>
                 {cols.map(element => {
                   return (
-                    <Col span={colSpan} key={Math.random()}>
+                    <Col span={colSpan} key={Math.random() + Date().toString()}>
                       <Suspense fallback={<Spin />}>
-                        <FilmListItem item={element} />
+                        <FilmListItem item={element} key={element.imdbID} />
                       </Suspense>
                     </Col>
                   );
@@ -122,6 +123,7 @@ const mapStateToProps = state => ({
   listFilms: state.counting.data,
   error: state.counting.error,
   isLoading: state.system.isLoading,
+  favoritesItems: state.counting.favoritesItems,
 });
 
 const mapDispatchToProps = {

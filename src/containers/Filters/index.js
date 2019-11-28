@@ -24,6 +24,7 @@ function Filters({ setFilterType, getFilmsAction }) {
         <Option value="movie">Movie</Option>
         <Option value="series">Series</Option>
         <Option value="episode">Episode</Option>
+        <Option value="game">Game</Option>
       </Select>
       {/* <Select
         defaultValue="short"

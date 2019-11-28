@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Layout, Icon, Switch as SwitchAnt } from 'antd';
 import 'antd/dist/antd.css';
-import { themes } from './components/ThemeContext';
+import { themes, collapsedSize, SizeContext } from './components/ThemeContext';
 import './App.css';
 import './index.less';
 import MainPage from './containers/MainPage/index';
@@ -35,6 +35,9 @@ initColors();
 function App({ children }) {
   const [theme, switchTheme] = useState(themes.dark);
   const [collapsingMenu, switchCollapsingMenu] = useState(true);
+  const [collapsedSizeState, switchCollapsedSize] = useState(
+    collapsedSize.short
+  );
 
   const toggleColors = () => {
     switchTheme(theme !== themes.light ? themes.light : themes.dark);
@@ -54,6 +57,11 @@ function App({ children }) {
 
   const toggleCollapse = () => {
     switchCollapsingMenu(!collapsingMenu);
+    if (collapsedSizeState === collapsedSize.short) {
+      switchCollapsedSize(collapsedSize.full);
+    } else {
+      switchCollapsedSize(collapsedSize.short);
+    }
   };
 
   return (
@@ -64,25 +72,27 @@ function App({ children }) {
           <SwitchAnt defaultChecked onChange={toggleColors} />
         </Header>
         <Layout>
-          <Sider
-            collapsible
-            collapsed={collapsingMenu}
-            onCollapse={toggleCollapse}>
-            {children}
-          </Sider>
+          <SizeContext.Provider value={collapsedSizeState}>
+            <Sider
+              collapsible
+              collapsed={collapsingMenu}
+              onCollapse={toggleCollapse}>
+              {children}
+            </Sider>
+          </SizeContext.Provider>
           <Layout>
             <Content>
-              <Router>
-                <Switch>
-                  <Route
-                    exact
-                    path="/"
-                    history={history}
-                    component={MainPage}
-                  />
-                  <Route path="/film/:id" history={history} component={Film} />
-                </Switch>
-              </Router>
+              <Switch>
+                <Route exact path="/" history={history} component={MainPage} />
+                <Route path="/film/:id" history={history} component={Film} />
+                <Route
+                  path="/favorite"
+                  history={history}
+                  render={() => (
+                    <div style={{ minHeight: '100vh' }}>My Favorite</div>
+                  )}
+                />
+              </Switch>
             </Content>
             <Footer>Footer @ Cinema 2019</Footer>
           </Layout>

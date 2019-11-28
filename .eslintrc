@@ -3,9 +3,9 @@
     "airbnb",
     "prettier",
     "prettier/react",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
   ],
-  "plugins": ["prettier", "jsx-a11y"],
+  "plugins": ["prettier", "jsx-a11y", "react-hooks"],
   "rules": {
     "camelcase": 1,
     "no-unused-expressions": 1,
@@ -38,7 +38,9 @@
         "checkContextTypes": true,
         "checkChildContextTypes": true
       }
-    ]
+    ],
+    "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
+    "react-hooks/exhaustive-deps": "warn" // Проверяем зависимости эффекта
   },
   "globals": {
     "window": true,

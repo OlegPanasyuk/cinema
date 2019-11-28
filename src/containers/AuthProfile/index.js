@@ -3,23 +3,37 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 import Profile from '../Profile';
+import { SizeContext } from '../../components/ThemeContext';
+
+import './index.less';
 
 function AuthProfile({ isAuthorized, toSingIn, toSignOut }) {
   const buttonGoogle = (
-    <Button
-      type="primary"
-      icon="login"
-      style={{ width: '100%' }}
-      onClick={toSingIn}>
-      SingIn
-    </Button>
+    <SizeContext.Consumer>
+      {value => (
+        <Button
+          type="primary"
+          icon="login"
+          className="btn-login"
+          onClick={toSingIn}>
+          {value === 'full' && 'Sing In'}
+        </Button>
+      )}
+    </SizeContext.Consumer>
   );
 
   const profileAssembly = (
     <Profile>
-      <Button onClick={toSignOut} icon="logout">
-        Sing Out
-      </Button>
+      <SizeContext.Consumer>
+        {value => (
+          <Button
+            onClick={toSignOut}
+            icon="logout"
+            style={{ marginTop: `${value === 'full' && '1em'}` }}>
+            {value === 'full' && 'Sing Out'}
+          </Button>
+        )}
+      </SizeContext.Consumer>
     </Profile>
   );
 

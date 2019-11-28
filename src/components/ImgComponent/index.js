@@ -33,6 +33,13 @@ class ImgComponent extends PureComponent {
       });
   };
 
+  componentWillUnmount = () => {
+    this.setState({
+      loading: true,
+      element: '',
+    });
+  };
+
   onLoad = image => {
     this.setState({
       loading: false,
@@ -57,7 +64,7 @@ class ImgComponent extends PureComponent {
           className={className}
           style={{ width: '100%', height: '100%' }}
         />
-        {!loading && element}
+        {!loading && element !== '' && element}
       </>
     );
   }
