@@ -14,7 +14,20 @@ function addFilmToFavorite(state, { payload }) {
   };
 }
 
+function removeFilmFromFavoriteReducer(state, { payload }) {
+  const favoritesItems = Array.from(state.favoritesItems).filter(
+    el => el !== payload
+  );
+  return {
+    ...state,
+    favoritesItems,
+  };
+}
+
 export default handleActions(
-  { [FILM.ADD_FILM_TO_FAVORITE]: addFilmToFavorite },
+  {
+    [FILM.ADD_FILM_TO_FAVORITE]: addFilmToFavorite,
+    [FILM.REMOVE_FILM_FROM_FAVORITE]: removeFilmFromFavoriteReducer,
+  },
   initialState
 );

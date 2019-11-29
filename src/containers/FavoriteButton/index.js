@@ -2,13 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'antd';
-import { addFilmToFavorite } from '../../actions/actionsBasic';
+import {
+  addFilmToFavorite,
+  removeFilmFromFavorite,
+} from '../../actions/actionsBasic';
 import './index.less';
 
-function FavoriteButton({ id, isFavorite, className, addFilmToFavorite }) {
+function FavoriteButton({
+  id,
+  isFavorite,
+  className,
+  addFilmToFavorite,
+  removeFilmFromFavorite,
+}) {
   const handler = e => {
     e.stopPropagation();
-    addFilmToFavorite(id);
+    if (!isFavorite) addFilmToFavorite(id);
+    else removeFilmFromFavorite(id);
   };
   return (
     <Button className={`favorite-btn ${className}`} onClick={handler}>
@@ -27,4 +37,6 @@ FavoriteButton.defaultProps = {
   className: '',
 };
 
-export default connect(null, { addFilmToFavorite })(FavoriteButton);
+export default connect(null, { addFilmToFavorite, removeFilmFromFavorite })(
+  FavoriteButton
+);

@@ -9,6 +9,7 @@ import './index.less';
 import MainPage from './containers/MainPage/index';
 import Film from './components/Film/index';
 import ErrorBoundary from './components/ErrorBoundary/index';
+import FavoriteItems from './containers/FavoriteItems/index';
 import darkTheme from './themes/darkTheme/index';
 import lightTheme from './themes/lightTheme/index';
 
@@ -88,9 +89,7 @@ function App({ children }) {
                 <Route
                   path="/favorite"
                   history={history}
-                  render={() => (
-                    <div style={{ minHeight: '100vh' }}>My Favorite</div>
-                  )}
+                  component={FavoriteItems}
                 />
               </Switch>
             </Content>
