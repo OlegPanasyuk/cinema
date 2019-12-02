@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Row, Col, Descriptions, PageHeader } from 'antd';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 import ImgComponent from '../../ImgComponent/index';
+import FavoriteButton from '../../../containers/FavoriteButton';
 
 class FilmContent extends PureComponent {
   state = {
@@ -34,12 +36,23 @@ class FilmContent extends PureComponent {
     return (
       <>
         <Row>
-          <Col>
-            <PageHeader
-              onBack={redirectToBackward}
-              title={`${info.Title} (${info.Year})`}
-              subTitle={`${info.Production}`}
-            />
+          <Col span={20} offset={2}>
+            <Row>
+              <Col span={18}>
+                <PageHeader
+                  onBack={redirectToBackward}
+                  title={`${info.Title} (${info.Year})`}
+                  subTitle={`${info.Production}`}
+                />
+              </Col>
+              <Col span={4} offset={2}>
+                <FavoriteButton
+                  className="card-favorite-btn"
+                  id={info.imdbID}
+                  isFavorite={false}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Row>
@@ -56,7 +69,9 @@ class FilmContent extends PureComponent {
                   timeout={500}
                   classNames="alert"
                   unmountOnExit>
-                  <ImgComponent {...propsImagePoster} />
+                  <>
+                    <ImgComponent {...propsImagePoster} />
+                  </>
                 </CSSTransition>
               </Col>
 
@@ -93,4 +108,4 @@ class FilmContent extends PureComponent {
   }
 }
 
-export default FilmContent;
+export default connect(null, null)(FilmContent);
